@@ -1,4 +1,5 @@
 import sys
+import time
 ARCHIVO_ESCRIBIR = "solucion.txt"
 SEPARADOR = ","
 
@@ -77,9 +78,16 @@ def escribir_archivo(minimo, asignacion, nombre_y_habilidad):
 def main(ARCHIVO):
 
     cantidad_de_grupos, nombre_y_habilidad = leer_archivo(ARCHIVO)
+
+    start_time = time.time()
     minimo, asignacion = resolver(cantidad_de_grupos, nombre_y_habilidad)
+    end_time = time.time()
+
+    tiempo_total = end_time - start_time
+
     escribir_archivo(minimo, asignacion, nombre_y_habilidad)
     print("la solucion se encuentra en el archivo solucion.txt")
+    print(f"la funcion de backtraking tardo {tiempo_total} segundos.")
 
 
 
