@@ -83,7 +83,8 @@ def main(ARCHIVO):
 
 
 
-
+#para usar el algortimo se espera que los argumentos sean:
+#python backtraking.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
     argumentos = sys.argv
     numero_parametros = len(argumentos)
