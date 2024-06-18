@@ -11,7 +11,7 @@ FILENAMES = [
     '6_4.txt', 
     '8_3.txt',
     '10_3.txt',
-    '10_5.txt', # NOT PASS
+    '10_5.txt', # NOT PASS FOR LP SOLVER
     # '10_10.txt',
     '11_5.txt', 
     '14_3.txt', 
