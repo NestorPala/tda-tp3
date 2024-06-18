@@ -4,12 +4,6 @@ from utils.tribu_agua import read_guerreros_file
 
 
 ARCHIVO_ESCRIBIR = "solucion_aproximada_greedy.txt"
-SEPARADOR = ","
-
-
-def ordenar(nombre_y_habilidad):
-    lista_ordenada = sorted(nombre_y_habilidad, key=lambda x: int(x[1]), reverse=True)
-    return lista_ordenada
 
 
 def aproximacion(cantidad_de_grupos, habilidad_ordenada):

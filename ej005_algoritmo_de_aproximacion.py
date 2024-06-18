@@ -4,12 +4,6 @@ from utils.tribu_agua import read_guerreros_file
 
 
 ARCHIVO_ESCRIBIR = "solucion_aproximada.txt"
-SEPARADOR = ","
-
-
-def ordenar(nombre_y_habilidad):
-    lista_ordenada = sorted(nombre_y_habilidad, key=lambda x: int(x[1]), reverse=True)
-    return lista_ordenada
 
 
 def aproximacion(cantidad_de_grupos, habilidad_ordenada):
@@ -46,7 +40,7 @@ def escribir_archivo(grupos, minimo):
 
 def main(ARCHIVO):
     cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(ARCHIVO)
-    habilidad_ordenada = ordenar(nombre_y_habilidad)
+    habilidad_ordenada = sorted(nombre_y_habilidad, key=lambda x: int(x[1]), reverse=True)
     
     start_time = time.time()
     grupos, minimo = aproximacion(cantidad_de_grupos, habilidad_ordenada)
