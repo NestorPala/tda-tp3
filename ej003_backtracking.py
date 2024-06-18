@@ -1,5 +1,5 @@
 import time
-from utils.tribu_agua import obtener_ruta_archivo, read_guerreros_file
+from utils.tribu_agua import get_sorted_guerreros, obtener_ruta_archivo, read_guerreros_file
 
 
 ARCHIVO_ESCRIBIR = "solucion.txt"
@@ -76,14 +76,7 @@ def tribu_agua_backtracking(guerreros, k):
     print("la solucion se encuentra en el archivo solucion.txt")
     print(f"la funcion de backtraking tardo {tiempo_total} segundos.")
 
-    guerreros_ = {}
-    for tuple_ in guerreros:
-        key_ = tuple_[0]
-        value = tuple_[1]
-        guerreros_[key_] = value
-
-    for key, value in res.items():
-        res[key] = sorted(value, key=lambda name: guerreros_[name], reverse=True)
+    res = get_sorted_guerreros(res, guerreros)
 
     return res, coeficiente
 

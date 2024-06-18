@@ -65,3 +65,16 @@ def obtener_ruta_archivo():
         print("se agregaron argumentos de mas, que van a ser ignorados")
     
     return f"TP3/{argumentos[1]}.txt"
+
+
+def get_sorted_guerreros(res: dict[str, list[str]], guerreros: list[str, int]):
+    guerreros_ = {}
+    for tuple_ in guerreros:
+        key_ = tuple_[0]
+        value = tuple_[1]
+        guerreros_[key_] = value
+
+    for key, value in res.items():
+        res[key] = sorted(value, key=lambda name: guerreros_[name], reverse=True)
+
+    return res
