@@ -72,7 +72,7 @@ def calc_total_coefficient(result: dict[int, list[str]], guerreros) -> int:
     return coef
 
 
-def tribu_agua_lp(guerreros_list, k):
+def tribu_agua_lp(guerreros_list, k, logs=False):
     problem = pulp.LpProblem(TP3, pulp.LpMinimize)
 
     # coefficients
@@ -119,7 +119,10 @@ def tribu_agua_lp(guerreros_list, k):
 
     print("Solving integer lineal programming problem...")
 
-    problem.solve()
+    if logs:
+        problem.solve()
+    else:
+        problem.solve(pulp.PULP_CBC_CMD(msg=0))
     
     # DEBUG
     # print("------------------------- DEBUG ------------------------- ")
@@ -131,19 +134,10 @@ def tribu_agua_lp(guerreros_list, k):
     return problem, boolean_variables
 
 
-def main():
-    guerreros = {
-        "Pakku" : 101,
-        "Yue" : 134,
-        "Yakone" : 759,
-        "Pakku I" : 308,
-        "Wei" : 644
-    }
-
+def tribu_agua_prog_lineal(guerreros, k, logs=False):
     lista_guerreros = [ [key, value] for key,value in guerreros.items() ]
-    k = 2
 
-    problem, solved_variables = tribu_agua_lp(lista_guerreros, k)
+    problem, solved_variables = tribu_agua_lp(lista_guerreros, k, logs)
 
     # DEBUG
     # print("------------------------- DEBUG ------------------------- ")
@@ -159,11 +153,4 @@ def main():
 
     coefficient = calc_total_coefficient(result, guerreros)
 
-    for key, value in result.items():
-        guerreros = ", ".join(value)
-        print(key + ": " + guerreros)
-
-    print("Coeficiente:", coefficient)
-
-
-main()
+    return result, coefficient
