@@ -1,7 +1,10 @@
 import sys
 import time
+
+
 ARCHIVO_ESCRIBIR = "solucion_aproximada_greedy.txt"
 SEPARADOR = ","
+
 
 def leer_archivo(ARCHIVO):
     try:
@@ -21,13 +24,9 @@ def leer_archivo(ARCHIVO):
     return cantidad_de_grupos, nombre_y_habilidad
 
 
-
 def ordenar(nombre_y_habilidad):
-    
     lista_ordenada = sorted(nombre_y_habilidad, key=lambda x: int(x[1]), reverse=True)
     return lista_ordenada
-
-
 
 
 def aproximacion(cantidad_de_grupos, habilidad_ordenada):
@@ -46,9 +45,7 @@ def aproximacion(cantidad_de_grupos, habilidad_ordenada):
     return grupos, minimo
 
 
-
 def escribir_archivo(grupos, minimo):
-
     try:
         archivo = open(ARCHIVO_ESCRIBIR, "w")
     except:
@@ -64,7 +61,6 @@ def escribir_archivo(grupos, minimo):
     archivo.close()
         
 
-
 def main(ARCHIVO):
     cantidad_de_grupos, nombre_y_habilidad = leer_archivo(ARCHIVO)
     
@@ -79,9 +75,8 @@ def main(ARCHIVO):
     print(f"el tiempo que tarda el algortimo es {total_time}")
 
 
-
-#para usar el algortimo se espera que los argumentos sean:
-#python 006_greedy.py (archivo del drive, ej: 6_3)
+# para usar el algortimo se espera que los argumentos sean:
+# python 006_greedy.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
     argumentos = sys.argv
     numero_parametros = len(argumentos)
