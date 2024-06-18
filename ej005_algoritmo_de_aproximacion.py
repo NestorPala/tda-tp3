@@ -39,7 +39,6 @@ def tribu_agua_aproximacion(guerreros, k):
 # para usar el algortimo se espera que los argumentos sean:
 # python ej005_algoritmo_de_aproximacion.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
-    # filename = obtener_ruta_archivo()
-    filename = f"TP3/6_3.txt"
+    filename = obtener_ruta_archivo()
     k, guerreros = read_guerreros_file(filename)
     tribu_agua_aproximacion(guerreros, k)

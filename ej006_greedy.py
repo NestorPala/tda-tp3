@@ -23,7 +23,8 @@ def tribu_agua_greedy(guerreros, k):
 # para usar el algortimo se espera que los argumentos sean:
 # python ej006_greedy.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
-    filename = obtener_ruta_archivo()
+    # filename = obtener_ruta_archivo()
+    filename = f"TP3/6_3.txt"
     k, guerreros = read_guerreros_file(filename)
     tribu_agua_greedy(guerreros, k)
     
