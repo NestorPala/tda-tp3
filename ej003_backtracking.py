@@ -1,4 +1,3 @@
-import sys
 import time
 from utils.tribu_agua import obtener_ruta_archivo, read_guerreros_file
 
@@ -62,7 +61,6 @@ def escribir_archivo(minimo, asignacion, nombre_y_habilidad):
 
 
 def tribu_agua_backtracking(filename):
-    # [('Hasook', 120), ('Hama', 445), ('Senna', 546), ('Hama I', 222), ('Wei', 551), ('Wei I', 330)]
     cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(filename)
 
     start_time = time.time()
@@ -79,6 +77,5 @@ def tribu_agua_backtracking(filename):
 # para usar el algortimo se espera que los argumentos sean:
 # python ej003_backtracking.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
-    # archivo = obtener_ruta_archivo()
-    archivo = f"TP3/6_3.txt"
+    archivo = obtener_ruta_archivo()
     tribu_agua_backtracking(archivo)

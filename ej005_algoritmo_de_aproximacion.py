@@ -1,4 +1,3 @@
-import sys
 import time
 from utils.tribu_agua import obtener_ruta_archivo, read_guerreros_file, aproximacion, escribir_archivo
 

@@ -160,10 +160,8 @@ def tribu_agua_lp(guerreros, k, logs=False):
 # para usar el algortimo se espera que los argumentos sean:
 # python ej004_programacion_lineal.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
-    # file = obtener_ruta_archivo()
-    file = f"TP3/6_3.txt"
-
-    k, guerreros_ = read_guerreros_file(file)
+    filename = obtener_ruta_archivo()
+    k, guerreros_ = read_guerreros_file(filename)
 
     guerreros = {}
     for tuple_ in guerreros_:
