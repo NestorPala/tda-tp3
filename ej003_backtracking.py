@@ -42,6 +42,8 @@ def backtracking(cantidad_de_grupos, nombre_y_habilidad):
 
 
 def escribir_archivo(coeficiente, asignacion, nombre_y_habilidad):
+    res = {}
+
     try:
         solucion = open(ARCHIVO_ESCRIBIR, "w")
     except:
@@ -53,11 +55,14 @@ def escribir_archivo(coeficiente, asignacion, nombre_y_habilidad):
         grupos[grupo].append(nombre)
     
     for i, grupo in enumerate(grupos, 1):
-        solucion.write(f'Grupo {i}: {", ".join(grupo)}\n')
+        key_ = f'Grupo {i}'
+        solucion.write(f'{key_}: {", ".join(grupo)}\n')
+        res[key_] = grupo
 
     solucion.write(f'Coeficiente: {coeficiente}')
-
     solucion.close()
+
+    return res
 
 
 def tribu_agua_backtracking(guerreros, k):
@@ -67,9 +72,20 @@ def tribu_agua_backtracking(guerreros, k):
 
     tiempo_total = end_time - start_time
 
-    escribir_archivo(coeficiente, asignacion, guerreros)
+    res = escribir_archivo(coeficiente, asignacion, guerreros)
     print("la solucion se encuentra en el archivo solucion.txt")
     print(f"la funcion de backtraking tardo {tiempo_total} segundos.")
+
+    guerreros_ = {}
+    for tuple_ in guerreros:
+        key_ = tuple_[0]
+        value = tuple_[1]
+        guerreros_[key_] = value
+
+    for key, value in res.items():
+        res[key] = sorted(value, key=lambda name: guerreros_[name], reverse=True)
+
+    return res, coeficiente
 
 
 # para usar el algortimo se espera que los argumentos sean:

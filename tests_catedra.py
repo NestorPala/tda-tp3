@@ -289,10 +289,14 @@ def solve(f):
 
         print(formatted_result_1)
 
+        expected_result = expected_result_to_data(EXPECTED_RESULTS[name])
+
         try:
-            assert formatted_result_2 == expected_result_to_data(EXPECTED_RESULTS[name])
+            assert formatted_result_2 == expected_result
         except:
             print(f"FILE {name} NOT PASSED!!!!!\n")
+            if coefficient == expected_result[1]:
+                print("COEFFICIENTS ARE THE SAME, GROUPS MIGHT BE DIFFERENTLY ARRANGED")
             continue
 
         print(f"File {name} passed!\n")
