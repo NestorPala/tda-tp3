@@ -41,7 +41,7 @@ def backtracking(cantidad_de_grupos, nombre_y_habilidad):
     return minimo[0], minimo[1]
 
 
-def escribir_archivo(minimo, asignacion, nombre_y_habilidad):
+def escribir_archivo(coeficiente, asignacion, nombre_y_habilidad):
     try:
         solucion = open(ARCHIVO_ESCRIBIR, "w")
     except:
@@ -55,19 +55,19 @@ def escribir_archivo(minimo, asignacion, nombre_y_habilidad):
     for i, grupo in enumerate(grupos, 1):
         solucion.write(f'Grupo {i}: {", ".join(grupo)}\n')
 
-    solucion.write(f'Coeficiente: {minimo}')
+    solucion.write(f'Coeficiente: {coeficiente}')
 
     solucion.close()
 
 
 def tribu_agua_backtracking(guerreros, k):
     start_time = time.time()
-    minimo, asignacion = backtracking(k, guerreros)
+    coeficiente, asignacion = backtracking(k, guerreros)
     end_time = time.time()
 
     tiempo_total = end_time - start_time
 
-    escribir_archivo(minimo, asignacion, guerreros)
+    escribir_archivo(coeficiente, asignacion, guerreros)
     print("la solucion se encuentra en el archivo solucion.txt")
     print(f"la funcion de backtraking tardo {tiempo_total} segundos.")
 

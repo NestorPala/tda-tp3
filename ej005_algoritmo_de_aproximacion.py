@@ -13,12 +13,12 @@ def aproximacion_Maestro_Pakku(guerreros, k):
 
 def tribu_agua_aproximacion(guerreros, k):
     start_time = time.time()
-    grupos, minimo = aproximacion_Maestro_Pakku(guerreros, k)
+    grupos, coeficiente = aproximacion_Maestro_Pakku(guerreros, k)
     end_time = time.time()
 
     total_time = end_time - start_time
 
-    escribir_archivo(grupos, minimo, ARCHIVO_ESCRIBIR)
+    escribir_archivo(grupos, coeficiente, ARCHIVO_ESCRIBIR)
     print("la solucion se encuentra en el archivo solucion_aproximada.txt")
     print(f"el tiempo que tarda el algortimo es {total_time}")
 
