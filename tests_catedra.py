@@ -1,5 +1,5 @@
 import time, sys
-from prog_lineal import tribu_agua_lp
+from ej004_programacion_lineal import tribu_agua_lp
 from datetime import datetime
 
 
