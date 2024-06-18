@@ -47,11 +47,11 @@ def to_name_in_group(variable_item, pulp, guerreros_list):
 def group_by_number(result: list[list[str, bool]]) -> dict[int, list[str]]:
     groups = {}
     for item in result:
-        group_number = item[0]
+        group_number_key = f"Grupo {item[0]}"
         guerrero_name = item[1]
-        if group_number not in groups:
-            groups[group_number] = []
-        groups[group_number].append(guerrero_name)
+        if group_number_key not in groups:
+            groups[group_number_key] = []
+        groups[group_number_key].append(guerrero_name)
     return groups
 
 
@@ -152,11 +152,16 @@ def main():
     result = list(filter(lambda item: item is not None, result))
     result = group_by_number(result)
 
-    print("Solution: \n")
-    print(result)
+    for key, value in result.items():
+        result[key] = sorted(value, key=lambda name: guerreros[name], reverse=True)
 
     coefficient = calc_coefficient(result, guerreros)
-    print("Calculated coefficient for this group: ", coefficient)
+
+    for key, value in result.items():
+        guerreros = ", ".join(value)
+        print(key + ": " + guerreros)
+
+    print("Coeficiente:", coefficient)
 
 
 main()
