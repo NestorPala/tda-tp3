@@ -30,7 +30,7 @@ def get_name(key, guerreros_list):
     return guerreros_list[index][GUERRERO_NAME]
 
 
-def to_name_in_group(variable_item, pulp, guerreros_list):
+def to_name_in_group(variable_item, guerreros_list):
     variable_name, variable = variable_item
 
     is_in_group = get_boolean(pulp.value(variable))
@@ -55,7 +55,7 @@ def group_by_number(result: list[list[str, bool]]) -> dict[int, list[str]]:
     return groups
 
 
-def calc_coefficient(result: dict[int, list[str]], guerreros) -> int:
+def calc_total_coefficient(result: dict[int, list[str]], guerreros) -> int:
     coef = 0
     group_sums = {}
 
@@ -84,6 +84,8 @@ def tribu_agua_lp(guerreros_list, k):
     boolean_variables = {}
     for j in range(1, k+1):
         for i in range(1, n+1):
+            # "j" is for subsets
+            # "i" is for guerreros
             name = key(j, i)
             boolean_variables[name] = pulp.LpVariable(name, cat=pulp.LpBinary)
 
@@ -148,14 +150,14 @@ def main():
     # print(problem)
     # print("--------------------------------------------------------- ")
 
-    result = list(map(lambda variable: to_name_in_group(variable, pulp, lista_guerreros), solved_variables.items()))
+    result = list(map(lambda variable: to_name_in_group(variable, lista_guerreros), solved_variables.items()))
     result = list(filter(lambda item: item is not None, result))
     result = group_by_number(result)
 
     for key, value in result.items():
         result[key] = sorted(value, key=lambda name: guerreros[name], reverse=True)
 
-    coefficient = calc_coefficient(result, guerreros)
+    coefficient = calc_total_coefficient(result, guerreros)
 
     for key, value in result.items():
         guerreros = ", ".join(value)
