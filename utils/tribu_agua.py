@@ -38,7 +38,7 @@ def aproximacion(cantidad_de_grupos, habilidad_ordenada):
     return grupos, minimo
 
 
-def escribir_archivo(grupos, minimo, archivo_escribir):
+def escribir_archivo(grupos, coeficiente, archivo_escribir):
     try:
         archivo = open(archivo_escribir, "w")
     except:
@@ -47,9 +47,9 @@ def escribir_archivo(grupos, minimo, archivo_escribir):
     
     for i, grupo in enumerate(grupos, start=1):
         nombres = ', '.join(grupo)
-        archivo.write(f"grupo {i}: {nombres}\n")
+        archivo.write(f"Grupo {i}: {nombres}\n")
 
-    archivo.write(f"coeficiente: {minimo}")
+    archivo.write(f"Coeficiente: {coeficiente}")
 
     archivo.close()
 
@@ -78,3 +78,13 @@ def get_sorted_guerreros(res: dict[str, list[str]], guerreros: list[str, int]):
         res[key] = sorted(value, key=lambda name: guerreros_[name], reverse=True)
 
     return res
+
+
+def format_result(name, result, coefficient, offset=""):
+    string = "\n"
+    string += offset + name + "\n"
+    for key, value in result.items():
+        guerreros = ", ".join(value)
+        string += offset + key + ": " + guerreros + "\n"
+    string += offset + "Coeficiente: " + str(coefficient) + "\n" + "    "
+    return string

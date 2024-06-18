@@ -1,5 +1,6 @@
+import sys
 import pulp
-from utils.tribu_agua import obtener_ruta_archivo, read_guerreros_file
+from utils.tribu_agua import format_result, obtener_ruta_archivo, read_guerreros_file
 
 
 TP3 = "tribu_agua_problem"
@@ -10,6 +11,9 @@ GUERRERO_VALUE = 1
 KEY_SEPARATOR = "_"
 KEY_GROUP = 1
 KEY_NAME = 2
+
+
+FILE_TO_WRITE = "solucion_programacion_lineal.txt"
 
 
 def key(j, i):
@@ -71,6 +75,16 @@ def calc_total_coefficient(result: dict[int, list[str]], guerreros) -> int:
         coef += power_sum ** 2
 
     return coef
+
+
+def write_file(data):
+    try:
+        archivo = open(FILE_TO_WRITE, "w")
+    except:
+        print("Error al abrir el archivo de solucion")
+        return
+    archivo.write(data)
+    archivo.close()
 
 
 def tribu_agua_lp_(guerreros_list, k, logs=False):
@@ -168,4 +182,8 @@ def tribu_agua_lp(guerreros_, k, logs=False):
 if __name__ == "__main__":
     filename = obtener_ruta_archivo()
     k, guerreros_ = read_guerreros_file(filename)
-    tribu_agua_lp(guerreros_, k)
+    
+    result, coefficient = tribu_agua_lp(guerreros_, k)
+
+    data = format_result(sys.argv[1] + ".txt", result, coefficient)
+    write_file(data)

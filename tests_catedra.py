@@ -4,7 +4,7 @@ from ej004_programacion_lineal import tribu_agua_lp
 from datetime import datetime
 from ej005_algoritmo_de_aproximacion import tribu_agua_aproximacion
 from ej006_greedy import tribu_agua_greedy
-from utils.tribu_agua import read_guerreros_file
+from utils.tribu_agua import format_result, read_guerreros_file
 
 
 SEPARATOR = ","
@@ -256,16 +256,6 @@ def expected_result_to_data(expected_result_str):
     return data, coefficient
 
 
-def format_result(name, result, coefficient):
-    string = "\n"
-    string += OFFSET + name + "\n"
-    for key, value in result.items():
-        guerreros = ", ".join(value)
-        string += OFFSET + key + ": " + guerreros + "\n"
-    string += OFFSET + "Coeficiente: " + str(coefficient) + "\n" + "    "
-    return string
-
-
 def solve(f):
     for name in FILENAMES:
         print(f"\nProcessing test for file: {name}")
@@ -286,7 +276,7 @@ def solve(f):
         execution_time = end_time - start_time
         print("Execution time:", execution_time, "seconds")
 
-        formatted_result_1 = format_result(name, result, coefficient)
+        formatted_result_1 = format_result(name, result, coefficient, offset=OFFSET)
         formatted_result_2 = expected_result_to_data(formatted_result_1)
 
         print(formatted_result_1)
