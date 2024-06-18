@@ -81,16 +81,16 @@ def tribu_agua_lp(guerreros_list, k):
     # binary variables to solve
     n = len(guerreros_list)
 
-    variables = {}
+    boolean_variables = {}
     for j in range(1, k+1):
         for i in range(1, n+1):
             name = key(j, i)
-            variables[name] = pulp.LpVariable(name, cat=pulp.LpBinary)
+            boolean_variables[name] = pulp.LpVariable(name, cat=pulp.LpBinary)
 
     # restrictions
     subsets = []
     for j in range(1, k+1):
-        sj = pulp.LpAffineExpression([(variables[key(j, i+1)], constants[i]) for i in range(len(constants))]) 
+        sj = pulp.LpAffineExpression([(boolean_variables[key(j, i+1)], constants[i]) for i in range(len(constants))]) 
         subsets.append(sj)
     
     for sj in subsets:
@@ -107,8 +107,8 @@ def tribu_agua_lp(guerreros_list, k):
         problem += sk <= sj
 
     for i in range(1, n+1):
-        all_coefficients_for_an_specific_element = [ variables[key(j, i)] for j in range(1, k+1) ]
-        problem += pulp.lpSum(all_coefficients_for_an_specific_element) == 1
+        all_booleans_for_an_specific_element = [ boolean_variables[key(j, i)] for j in range(1, k+1) ]
+        problem += pulp.lpSum(all_booleans_for_an_specific_element) == 1
 
     # objective function
     s1 = subsets[0]
@@ -126,7 +126,7 @@ def tribu_agua_lp(guerreros_list, k):
     #     print(v)
     # print("--------------------------------------------------------- ")
 
-    return problem, variables
+    return problem, boolean_variables
 
 
 def main():
@@ -141,14 +141,14 @@ def main():
     lista_guerreros = [ [key, value] for key,value in guerreros.items() ]
     k = 2
 
-    problem, variables = tribu_agua_lp(lista_guerreros, k)
+    problem, solved_variables = tribu_agua_lp(lista_guerreros, k)
 
     # DEBUG
     # print("------------------------- DEBUG ------------------------- ")
     # print(problem)
     # print("--------------------------------------------------------- ")
 
-    result = list(map(lambda variable: to_name_in_group(variable, pulp, lista_guerreros), variables.items()))
+    result = list(map(lambda variable: to_name_in_group(variable, pulp, lista_guerreros), solved_variables.items()))
     result = list(filter(lambda item: item is not None, result))
     result = group_by_number(result)
 
