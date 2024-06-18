@@ -1,13 +1,13 @@
 import sys
 import time
-from utils.tribu_agua import read_guerreros_file, aproximacion, escribir_archivo
+from utils.tribu_agua import obtener_ruta_archivo, read_guerreros_file, aproximacion, escribir_archivo
 
 
 ARCHIVO_ESCRIBIR = "solucion_aproximada.txt"
 
 
-def main(ARCHIVO):
-    cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(ARCHIVO)
+def tribu_agua_aproximacion(filename):
+    cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(filename)
 
     # Ordenamos de mayor a menor los maestros en función de su habilidad o fortaleza
     habilidad_ordenada = sorted(nombre_y_habilidad, key=lambda x: int(x[1]), reverse=True)
@@ -26,14 +26,5 @@ def main(ARCHIVO):
 # para usar el algortimo se espera que los argumentos sean:
 # python ej005_algoritmo_de_aproximacion.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
-    argumentos = sys.argv
-    numero_parametros = len(argumentos)
-    
-    if numero_parametros < 2:
-        print("faltan argumentos para utilizar el generador")
-        sys.exit()
-    elif numero_parametros > 2:
-        print("se agregaron argumentos de mas, que van a ser ignorados")
-    
-    ARCHIVO = f"TP3/{argumentos[1]}.txt"
-    main(ARCHIVO)
+    archivo = obtener_ruta_archivo()
+    tribu_agua_aproximacion(archivo)

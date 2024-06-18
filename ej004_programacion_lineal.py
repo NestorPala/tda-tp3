@@ -1,4 +1,5 @@
 import pulp
+from utils.tribu_agua import obtener_ruta_archivo, read_guerreros_file
 
 
 TP3 = "tribu_agua_problem"
@@ -154,3 +155,20 @@ def tribu_agua_lp(guerreros, k, logs=False):
     coefficient = calc_total_coefficient(result, guerreros)
 
     return result, coefficient
+
+
+# para usar el algortimo se espera que los argumentos sean:
+# python ej004_programacion_lineal.py (archivo del drive, ej: 6_3)
+if __name__ == "__main__":
+    # file = obtener_ruta_archivo()
+    file = f"TP3/6_3.txt"
+
+    k, guerreros_ = read_guerreros_file(file)
+
+    guerreros = {}
+    for tuple_ in guerreros_:
+        key_ = tuple_[0]
+        value = tuple_[1]
+        guerreros[key_] = value
+
+    tribu_agua_lp(guerreros, k)

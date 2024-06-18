@@ -1,3 +1,6 @@
+import sys
+
+
 SEPARATOR = ","
 
 
@@ -49,3 +52,16 @@ def escribir_archivo(grupos, minimo, archivo_escribir):
     archivo.write(f"coeficiente: {minimo}")
 
     archivo.close()
+
+
+def obtener_ruta_archivo():
+    argumentos = sys.argv
+    numero_parametros = len(argumentos)
+    
+    if numero_parametros < 2:
+        print("faltan argumentos para utilizar el generador")
+        sys.exit()
+    elif numero_parametros > 2:
+        print("se agregaron argumentos de mas, que van a ser ignorados")
+    
+    return f"TP3/{argumentos[1]}.txt"

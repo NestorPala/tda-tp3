@@ -1,6 +1,8 @@
 import time, sys
+from ej003_backtracking import tribu_agua_backtracking
 from ej004_programacion_lineal import tribu_agua_lp
 from datetime import datetime
+from ej006_greedy import tribu_agua_greedy
 from utils.tribu_agua import read_guerreros_file
 
 
