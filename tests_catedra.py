@@ -290,13 +290,7 @@ def solve(f):
         current_date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
         print("Test start: ", current_date)
 
-        # CALLING GREEDY SOLUTION
-        #
-
-        # CALLING BACKTRACKING SOLUTION
-        #
-
-        # CALLING LP SOLUTION
+        # CALLING SPECIFIED SOLUTION
         resultado, coeficiente = f(nombre_y_habilidad, cantidad_de_grupos)
 
         end_time = time.time()
