@@ -1,6 +1,8 @@
 import pulp
 
 
+TP3 = "tribu_agua_problem"
+
 GUERRERO_NAME = 0
 GUERRERO_VALUE = 1
 
@@ -23,12 +25,12 @@ def get_group_number(key):
     return int(key.split(KEY_SEPARATOR)[KEY_GROUP])
 
 
-def get_name(key, lista_guerreros):
+def get_name(key, guerreros_list):
     index = int(key.split(KEY_SEPARATOR)[KEY_NAME]) - 1
-    return lista_guerreros[index][GUERRERO_NAME]
+    return guerreros_list[index][GUERRERO_NAME]
 
 
-def to_name_in_group(variable_item, pulp, lista_guerreros):
+def to_name_in_group(variable_item, pulp, guerreros_list):
     variable_name, variable = variable_item
 
     is_in_group = get_boolean(pulp.value(variable))
@@ -38,18 +40,46 @@ def to_name_in_group(variable_item, pulp, lista_guerreros):
     
     return [
         get_group_number(variable_name),
-        get_name(variable_name, lista_guerreros)
+        get_name(variable_name, guerreros_list)
     ]
 
 
-def tribu_agua_ple(lista_guerreros, k):
-    problem = pulp.LpProblem("tribu_agua", pulp.LpMinimize)
+def group_by_number(result: list[list[str, bool]]) -> dict[int, list[str]]:
+    groups = {}
+    for item in result:
+        group_number = item[0]
+        guerrero_name = item[1]
+        if group_number not in groups:
+            groups[group_number] = []
+        groups[group_number].append(guerrero_name)
+    return groups
+
+
+def calc_coefficient(result: dict[int, list[str]], guerreros) -> int:
+    coef = 0
+    group_sums = {}
+
+    for group_number, guerreros_names in result.items():
+        for name in guerreros_names:
+            if group_number not in group_sums:
+                group_sums[group_number] = 0
+            power_value = guerreros[name]
+            group_sums[group_number] += power_value
+
+    for power_sum in group_sums.values():
+        coef += power_sum ** 2
+
+    return coef
+
+
+def tribu_agua_lp(guerreros_list, k):
+    problem = pulp.LpProblem(TP3, pulp.LpMinimize)
 
     # coefficients
-    constants = list(map(lambda guerrero: guerrero[GUERRERO_VALUE], lista_guerreros))
+    constants = list(map(lambda guerrero: guerrero[GUERRERO_VALUE], guerreros_list))
 
     # binary variables to solve
-    n = len(lista_guerreros)
+    n = len(guerreros_list)
 
     variables = {}
     for j in range(1, k+1):
@@ -100,17 +130,18 @@ def tribu_agua_ple(lista_guerreros, k):
 
 
 def main():
-    lista_guerreros = [
-        ("Pakku", 101),
-        ("Yue", 134),
-        ("Yakone", 759),
-        ("Pakku I", 308),
-        ("Wei", 644)
-    ]
+    guerreros = {
+        "Pakku" : 101,
+        "Yue" : 134,
+        "Yakone" : 759,
+        "Pakku I" : 308,
+        "Wei" : 644
+    }
 
+    lista_guerreros = [ [key, value] for key,value in guerreros.items() ]
     k = 2
 
-    problem, variables = tribu_agua_ple(lista_guerreros, k)
+    problem, variables = tribu_agua_lp(lista_guerreros, k)
 
     # DEBUG
     # print("------------------------- DEBUG ------------------------- ")
@@ -119,10 +150,13 @@ def main():
 
     result = list(map(lambda variable: to_name_in_group(variable, pulp, lista_guerreros), variables.items()))
     result = list(filter(lambda item: item is not None, result))
+    result = group_by_number(result)
 
     print("Solution: \n")
-    for variable in result:
-        print(variable)
+    print(result)
+
+    coefficient = calc_coefficient(result, guerreros)
+    print("Calculated coefficient for this group: ", coefficient)
 
 
 main()
