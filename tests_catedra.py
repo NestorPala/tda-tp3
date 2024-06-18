@@ -3,9 +3,9 @@ from prog_lineal import tribu_agua_prog_lineal
 from datetime import datetime
 
 
-SEPARADOR = ","
+SEPARATOR = ","
 
-NOMBRES = [
+FILENAMES = [
     '5_2.txt', 
     '6_3.txt', 
     '6_4.txt', 
@@ -29,7 +29,7 @@ NOMBRES = [
     # '20_8.txt'
 ]
 
-RESULTS = {
+EXPECTED_RESULTS = {
     '10_10.txt': """
         10_10.txt
         Grupo 1: Unalaq
@@ -229,69 +229,69 @@ RESULTS = {
 
 OFFSET = "        "
 
-SOLUTIONS = {
+SOLVERS = {
     "-greedy":   lambda guerreros, k: tribu_agua_greedy(guerreros, k),
     "-back":     lambda guerreros, k: tribu_agua_backtracking(guerreros, k),
     "-lp":       lambda guerreros, k: tribu_agua_prog_lineal(guerreros, k, logs=False)
 }
 
 
-def leer_archivo(ARCHIVO):
+def read_file(filename):
     try:
-        with open(ARCHIVO, "r") as grupos:
-            lineas = [linea for linea in grupos if not linea.startswith("#")]
+        with open(filename, "r") as groups:
+            lines = [line for line in groups if not line.startswith("#")]
     except:
-        print("Error al abrir el archivo de los grupos")
+        print("Error opening groups file!")
         return None, None
     
-    cantidad_de_grupos = int(lineas[0].strip())
+    group_count = int(lines[0].strip())
     
-    nombre_y_habilidad = {}
-    for linea in lineas[1:]:
-        nombre, fuerza = linea.strip().split(SEPARADOR)
-        nombre_y_habilidad[nombre] = int(fuerza)
+    guerreros = {}
+    for line in lines[1:]:
+        name, power = line.strip().split(SEPARATOR)
+        guerreros[name] = int(power)
     
-    return cantidad_de_grupos, nombre_y_habilidad
+    return guerreros, group_count
 
 
-def resultado_esperado_to_data(resultado_esperado_str):
-    data = resultado_esperado_str.split("\n")
+def expected_result_to_data(expected_result_str):
+    data = expected_result_str.split("\n")
     data.pop(0)
     data.pop(0)
     data.pop()
-    coeficiente = int(data.pop().split(":")[1])
+    coefficient = int(data.pop().split(":")[1])
     data = list(map(lambda item: item.replace("        ", ""), data))
     data = list(map(lambda item: item.split(":"), data))
     data = list(map(lambda item: item[1].replace(" ", "").split(","), data))
 
     data = sorted(data, key=lambda item: "".join(item))
 
-    return data, coeficiente
+    return data, coefficient
 
 
-def format_result(nombre, resultado, coeficiente):
-    result = "\n"
-    result += OFFSET + nombre + "\n"
-    for key, value in resultado.items():
+def format_result(name, result, coefficient):
+    string = "\n"
+    string += OFFSET + name + "\n"
+    for key, value in result.items():
         guerreros = ", ".join(value)
-        result += OFFSET + key + ": " + guerreros + "\n"
-    result += OFFSET + "Coeficiente: " + str(coeficiente) + "\n" + "    "
-    return result
+        string += OFFSET + key + ": " + guerreros + "\n"
+    string += OFFSET + "Coeficiente: " + str(coefficient) + "\n" + "    "
+    return string
 
 
 def solve(f):
-    for nombre in NOMBRES:
-        print(f"\nProcessing test for file: {nombre}")
+    for name in FILENAMES:
+        print(f"\nProcessing test for file: {name}")
 
-        file = f"TP3/{nombre}"
-        cantidad_de_grupos, nombre_y_habilidad = leer_archivo(file)
+        filepath = f"TP3/{name}"
+        guerreros, k = read_file(filepath)
 
         start_time = time.time()
         current_date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
         print("Test start: ", current_date)
 
-        # CALLING SPECIFIED SOLUTION
-        resultado, coeficiente = f(nombre_y_habilidad, cantidad_de_grupos)
+        # CALLING SPECIFIED SOLVER
+        result, coefficient = f(guerreros, k)
 
         end_time = time.time()
         current_date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
@@ -299,23 +299,23 @@ def solve(f):
         execution_time = end_time - start_time
         print("Execution time:", execution_time, "seconds")
 
-        formatted_result_1 = format_result(nombre, resultado, coeficiente)
-        formatted_result_2 = resultado_esperado_to_data(formatted_result_1)
+        formatted_result_1 = format_result(name, result, coefficient)
+        formatted_result_2 = expected_result_to_data(formatted_result_1)
 
         print(formatted_result_1)
 
         try:
-            assert formatted_result_2 == resultado_esperado_to_data(RESULTS[nombre])
+            assert formatted_result_2 == expected_result_to_data(EXPECTED_RESULTS[name])
         except:
-            print(f"FILE {nombre} NOT PASSED!!!!!\n")
+            print(f"FILE {name} NOT PASSED!!!!!\n")
             continue
 
-        print(f"File {nombre} passed!\n")
+        print(f"File {name} passed!\n")
 
 
 def main():
     method = sys.argv[1]
-    solve(SOLUTIONS[method])
+    solve(SOLVERS[method])
 
 
 main()
