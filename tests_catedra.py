@@ -269,13 +269,7 @@ def solve(f):
         print(f"\nProcessing test for file: {name}")
 
         filepath = f"TP3/{name}"
-        k, guerreros_ = read_guerreros_file(filepath)
-
-        guerreros = {}
-        for tuple_ in guerreros_:
-            key = tuple_[0]
-            value = tuple_[1]
-            guerreros[key] = value
+        k, guerreros = read_guerreros_file(filepath)
 
         start_time = time.time()
         current_date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')

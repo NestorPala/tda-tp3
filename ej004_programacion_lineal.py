@@ -135,7 +135,13 @@ def tribu_agua_lp_(guerreros_list, k, logs=False):
     return problem, boolean_variables
 
 
-def tribu_agua_lp(guerreros, k, logs=False):
+def tribu_agua_lp(guerreros_, k, logs=False):
+    guerreros = {}
+    for tuple_ in guerreros_:
+        key_ = tuple_[0]
+        value = tuple_[1]
+        guerreros[key_] = value
+
     guerreros_list = [ [key, value] for key,value in guerreros.items() ]
 
     problem, solved_variables = tribu_agua_lp_(guerreros_list, k, logs)
@@ -162,11 +168,4 @@ def tribu_agua_lp(guerreros, k, logs=False):
 if __name__ == "__main__":
     filename = obtener_ruta_archivo()
     k, guerreros_ = read_guerreros_file(filename)
-
-    guerreros = {}
-    for tuple_ in guerreros_:
-        key_ = tuple_[0]
-        value = tuple_[1]
-        guerreros[key_] = value
-
-    tribu_agua_lp(guerreros, k)
+    tribu_agua_lp(guerreros_, k)
