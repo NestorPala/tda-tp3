@@ -1,5 +1,5 @@
 import time, sys
-from prog_lineal import tribu_agua_prog_lineal
+from prog_lineal import tribu_agua_lp
 from datetime import datetime
 
 
@@ -232,7 +232,7 @@ OFFSET = "        "
 SOLVERS = {
     "-greedy":   lambda guerreros, k: tribu_agua_greedy(guerreros, k),
     "-back":     lambda guerreros, k: tribu_agua_backtracking(guerreros, k),
-    "-lp":       lambda guerreros, k: tribu_agua_prog_lineal(guerreros, k, logs=False)
+    "-lp":       lambda guerreros, k: tribu_agua_lp(guerreros, k, logs=False)
 }
 
 

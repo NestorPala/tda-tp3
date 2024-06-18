@@ -72,7 +72,7 @@ def calc_total_coefficient(result: dict[int, list[str]], guerreros) -> int:
     return coef
 
 
-def tribu_agua_lp(guerreros_list, k, logs=False):
+def tribu_agua_lp_(guerreros_list, k, logs=False):
     problem = pulp.LpProblem(TP3, pulp.LpMinimize)
 
     # coefficients
@@ -134,17 +134,17 @@ def tribu_agua_lp(guerreros_list, k, logs=False):
     return problem, boolean_variables
 
 
-def tribu_agua_prog_lineal(guerreros, k, logs=False):
-    lista_guerreros = [ [key, value] for key,value in guerreros.items() ]
+def tribu_agua_lp(guerreros, k, logs=False):
+    guerreros_list = [ [key, value] for key,value in guerreros.items() ]
 
-    problem, solved_variables = tribu_agua_lp(lista_guerreros, k, logs)
+    problem, solved_variables = tribu_agua_lp_(guerreros_list, k, logs)
 
     # DEBUG
     # print("------------------------- DEBUG ------------------------- ")
     # print(problem)
     # print("--------------------------------------------------------- ")
 
-    result = list(map(lambda variable: to_name_in_group(variable, lista_guerreros), solved_variables.items()))
+    result = list(map(lambda variable: to_name_in_group(variable, guerreros_list), solved_variables.items()))
     result = list(filter(lambda item: item is not None, result))
     result = group_by_number(result)
 
