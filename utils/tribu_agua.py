@@ -17,3 +17,35 @@ def read_guerreros_file(filename, separator=SEPARATOR):
         guerreros.append((name, int(power)))
     
     return group_count, guerreros
+
+
+def aproximacion(cantidad_de_grupos, habilidad_ordenada):
+    grupos = [[] for _ in range(cantidad_de_grupos)]
+    sumas_cuadradas = [0] * cantidad_de_grupos
+
+    for nombre, habilidad in habilidad_ordenada:
+        grupo_minimo = min(range(cantidad_de_grupos), key = lambda i: sumas_cuadradas[i])
+
+        grupos[grupo_minimo].append(nombre)
+
+        sumas_cuadradas[grupo_minimo] += habilidad
+
+    minimo = sum(j**2 for j in sumas_cuadradas)
+
+    return grupos, minimo
+
+
+def escribir_archivo(grupos, minimo, archivo_escribir):
+    try:
+        archivo = open(archivo_escribir, "w")
+    except:
+        print("Error al abrir el archivo de solucion")
+        return
+    
+    for i, grupo in enumerate(grupos, start=1):
+        nombres = ', '.join(grupo)
+        archivo.write(f"grupo {i}: {nombres}\n")
+
+    archivo.write(f"coeficiente: {minimo}")
+
+    archivo.close()

@@ -1,45 +1,15 @@
 import sys
 import time
-from utils.tribu_agua import read_guerreros_file
+from utils.tribu_agua import read_guerreros_file, aproximacion, escribir_archivo
 
 
 ARCHIVO_ESCRIBIR = "solucion_aproximada.txt"
 
 
-def aproximacion(cantidad_de_grupos, habilidad_ordenada):
-    grupos = [[] for _ in range(cantidad_de_grupos)]
-    sumas_cuadradas = [0] * cantidad_de_grupos
-
-    for nombre, habilidad in habilidad_ordenada:
-        grupo_minimo = min(range(cantidad_de_grupos), key = lambda i: sumas_cuadradas[i])
-
-        grupos[grupo_minimo].append(nombre)
-
-        sumas_cuadradas[grupo_minimo] += habilidad
-
-    minimo = sum(j**2 for j in sumas_cuadradas)
-
-    return grupos, minimo
-
-
-def escribir_archivo(grupos, minimo):
-    try:
-        archivo = open(ARCHIVO_ESCRIBIR, "w")
-    except:
-        print("Error al abrir el archivo de solucion")
-        return
-    
-    for i, grupo in enumerate(grupos, start=1):
-        nombres = ', '.join(grupo)
-        archivo.write(f"grupo {i}: {nombres}\n")
-
-    archivo.write(f"coeficiente: {minimo}")
-
-    archivo.close()
-
-
 def main(ARCHIVO):
     cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(ARCHIVO)
+
+    # Ordenamos de mayor a menor los maestros en función de su habilidad o fortaleza
     habilidad_ordenada = sorted(nombre_y_habilidad, key=lambda x: int(x[1]), reverse=True)
     
     start_time = time.time()
@@ -48,7 +18,7 @@ def main(ARCHIVO):
 
     total_time = end_time - start_time
 
-    escribir_archivo(grupos, minimo)
+    escribir_archivo(grupos, minimo, ARCHIVO_ESCRIBIR)
     print("la solucion se encuentra en el archivo solucion_aproximada.txt")
     print(f"el tiempo que tarda el algortimo es {total_time}")
 
