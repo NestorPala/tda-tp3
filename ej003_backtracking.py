@@ -60,16 +60,14 @@ def escribir_archivo(minimo, asignacion, nombre_y_habilidad):
     solucion.close()
 
 
-def tribu_agua_backtracking(filename):
-    cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(filename)
-
+def tribu_agua_backtracking(guerreros, k):
     start_time = time.time()
-    minimo, asignacion = backtracking(cantidad_de_grupos, nombre_y_habilidad)
+    minimo, asignacion = backtracking(k, guerreros)
     end_time = time.time()
 
     tiempo_total = end_time - start_time
 
-    escribir_archivo(minimo, asignacion, nombre_y_habilidad)
+    escribir_archivo(minimo, asignacion, guerreros)
     print("la solucion se encuentra en el archivo solucion.txt")
     print(f"la funcion de backtraking tardo {tiempo_total} segundos.")
 
@@ -77,5 +75,6 @@ def tribu_agua_backtracking(filename):
 # para usar el algortimo se espera que los argumentos sean:
 # python ej003_backtracking.py (archivo del drive, ej: 6_3)
 if __name__ == "__main__":
-    archivo = obtener_ruta_archivo()
-    tribu_agua_backtracking(archivo)
+    filename = obtener_ruta_archivo()
+    k, guerreros = read_guerreros_file(filename)
+    tribu_agua_backtracking(guerreros, k)
