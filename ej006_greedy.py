@@ -6,11 +6,15 @@ from utils.tribu_agua import read_guerreros_file, aproximacion, escribir_archivo
 ARCHIVO_ESCRIBIR = "solucion_aproximada_greedy.txt"
 
 
+def aproximacion_greedy(cantidad_de_grupos, nombre_y_habilidad):
+    return aproximacion(cantidad_de_grupos, nombre_y_habilidad)
+
+
 def main(ARCHIVO):
     cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(ARCHIVO)
     
     start_time = time.time()
-    grupos, minimo = aproximacion(cantidad_de_grupos, nombre_y_habilidad)
+    grupos, minimo = aproximacion_greedy(cantidad_de_grupos, nombre_y_habilidad)
     end_time = time.time()
 
     total_time = end_time - start_time

@@ -9,7 +9,7 @@ ARCHIVO_ESCRIBIR = "solucion.txt"
 # n = numero de maestros, k = numero de grupos, x= lista de fuerzas de los maestros
 # grupo = lista de sumas de fuerzas de los grupos, pos = posicion actual en la lista de maestros
 # minimo = minimo encontrado hasta ahora
-def backtracking(n, k, x, grupo, asignacion, pos, minimo):
+def backtracking_(n, k, x, grupo, asignacion, pos, minimo):
     # si se asignaorn todos los maestros a un grupo, calcula la suma de los cuadrados de las sumas de las fuerzas de los grupos
     if pos == n:
         suma = sum(i**2 for i in grupo)
@@ -25,12 +25,12 @@ def backtracking(n, k, x, grupo, asignacion, pos, minimo):
             # verifica si la suma es manor al minimo actual, si es asi sigue con el sig maestro
             if sum(j**2 for j in grupo) < minimo[0]:
                 # llama la siguiente posicion
-                backtracking(n, k, x, grupo, asignacion, pos + 1, minimo)
+                backtracking_(n, k, x, grupo, asignacion, pos + 1, minimo)
             # deshace la asignacion del maestro
             grupo[i] -= x[pos]
 
 
-def resolver(cantidad_de_grupos, nombre_y_habilidad):
+def backtracking(cantidad_de_grupos, nombre_y_habilidad):
     # numero total de maestros
     n = len(nombre_y_habilidad)
     # crea lista con las fuerzas de los maestros
@@ -38,7 +38,7 @@ def resolver(cantidad_de_grupos, nombre_y_habilidad):
     grupo = [0]*cantidad_de_grupos
     asignacion = [0]*n
     minimo = [float('inf'), []]
-    backtracking(n, cantidad_de_grupos, x, grupo, asignacion, 0, minimo)
+    backtracking_(n, cantidad_de_grupos, x, grupo, asignacion, 0, minimo)
     return minimo[0], minimo[1]
 
 
@@ -65,7 +65,7 @@ def main(ARCHIVO):
     cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(ARCHIVO)
 
     start_time = time.time()
-    minimo, asignacion = resolver(cantidad_de_grupos, nombre_y_habilidad)
+    minimo, asignacion = backtracking(cantidad_de_grupos, nombre_y_habilidad)
     end_time = time.time()
 
     tiempo_total = end_time - start_time
