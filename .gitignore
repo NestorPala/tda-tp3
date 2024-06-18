@@ -2,4 +2,5 @@ solucion_aproximada_greedy.txt
 solucion_aproximada.txt
 solucion.txt
 
+__pycache__
 utils/__pycache__
