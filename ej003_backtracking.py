@@ -1,27 +1,9 @@
 import sys
 import time
+from utils.tribu_agua import read_guerreros_file
 
 
 ARCHIVO_ESCRIBIR = "solucion.txt"
-SEPARADOR = ","
-
-
-def leer_archivo(ARCHIVO):
-    try:
-        with open(ARCHIVO, "r") as grupos:
-            lineas = [linea for linea in grupos if not linea.startswith("#")]
-    except:
-        print("Error al abrir el archivo de los grupos")
-        return None, None
-    
-    cantidad_de_grupos = int(lineas[0].strip())
-    
-    nombre_y_habilidad = []
-    for linea in lineas[1:]:
-        nombre, fuerza = linea.strip().split(SEPARADOR)
-        nombre_y_habilidad.append((nombre, int(fuerza)))
-    
-    return cantidad_de_grupos, nombre_y_habilidad
 
 
 # n = numero de maestros, k = numero de grupos, x= lista de fuerzas de los maestros
@@ -80,8 +62,7 @@ def escribir_archivo(minimo, asignacion, nombre_y_habilidad):
 
 
 def main(ARCHIVO):
-
-    cantidad_de_grupos, nombre_y_habilidad = leer_archivo(ARCHIVO)
+    cantidad_de_grupos, nombre_y_habilidad = read_guerreros_file(ARCHIVO)
 
     start_time = time.time()
     minimo, asignacion = resolver(cantidad_de_grupos, nombre_y_habilidad)

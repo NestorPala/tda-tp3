@@ -1,6 +1,7 @@
 import time, sys
 from ej004_programacion_lineal import tribu_agua_lp
 from datetime import datetime
+from utils.tribu_agua import read_guerreros_file
 
 
 SEPARATOR = ","
@@ -236,24 +237,6 @@ SOLVERS = {
 }
 
 
-def read_file(filename):
-    try:
-        with open(filename, "r") as groups:
-            lines = [line for line in groups if not line.startswith("#")]
-    except:
-        print("Error opening groups file!")
-        return None, None
-    
-    group_count = int(lines[0].strip())
-    
-    guerreros = {}
-    for line in lines[1:]:
-        name, power = line.strip().split(SEPARATOR)
-        guerreros[name] = int(power)
-    
-    return guerreros, group_count
-
-
 def expected_result_to_data(expected_result_str):
     data = expected_result_str.split("\n")
     data.pop(0)
@@ -284,7 +267,13 @@ def solve(f):
         print(f"\nProcessing test for file: {name}")
 
         filepath = f"TP3/{name}"
-        guerreros, k = read_file(filepath)
+        k, guerreros_ = read_guerreros_file(filepath)
+
+        guerreros = {}
+        for tuple_ in guerreros_:
+            key = tuple_[0]
+            value = tuple_[1]
+            guerreros[key] = value
 
         start_time = time.time()
         current_date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
