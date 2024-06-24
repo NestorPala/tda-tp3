@@ -2,6 +2,7 @@ import sys
 
 
 SEPARATOR = ","
+OFFSET = "        "
 
 
 def read_guerreros_file(filename, separator=SEPARATOR):
@@ -80,7 +81,7 @@ def get_sorted_guerreros(res: dict[str, list[str]], guerreros: list[str, int]):
     return res
 
 
-def format_result(name, result, coefficient, offset=""):
+def format_result(name, result, coefficient, offset=OFFSET):
     string = "\n"
     string += offset + name + "\n"
     for key, value in result.items():

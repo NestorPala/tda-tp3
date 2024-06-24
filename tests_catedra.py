@@ -1,9 +1,6 @@
-import time, sys
-from ej003_backtracking import tribu_agua_backtracking
-from ej004_programacion_lineal import tribu_agua_lp
 from datetime import datetime
-from ej005_algoritmo_de_aproximacion import tribu_agua_aproximacion
-from ej006_greedy import tribu_agua_greedy
+import time, sys
+from tp3 import SOLVERS
 from utils.tribu_agua import format_result, read_guerreros_file
 
 
@@ -231,15 +228,6 @@ EXPECTED_RESULTS = {
     """,
 }
 
-OFFSET = "        "
-
-SOLVERS = {
-    "-back":     lambda guerreros, k: tribu_agua_backtracking(guerreros, k),
-    "-lp":       lambda guerreros, k: tribu_agua_lp(guerreros, k, logs=False),
-    "-aprox":    lambda guerreros, k: tribu_agua_aproximacion(guerreros, k),
-    "-greedy":   lambda guerreros, k: tribu_agua_greedy(guerreros, k),
-}
-
 
 def expected_result_to_data(expected_result_str):
     data = expected_result_str.split("\n")
@@ -256,7 +244,7 @@ def expected_result_to_data(expected_result_str):
     return data, coefficient
 
 
-def solve(f):
+def test(f):
     for name in FILENAMES:
         print(f"\nProcessing test for file: {name}")
 
@@ -276,7 +264,7 @@ def solve(f):
         execution_time = end_time - start_time
         print("Execution time:", execution_time, "seconds")
 
-        formatted_result_1 = format_result(name, result, coefficient, offset=OFFSET)
+        formatted_result_1 = format_result(name, result, coefficient)
         formatted_result_2 = expected_result_to_data(formatted_result_1)
 
         print(formatted_result_1)
@@ -296,7 +284,7 @@ def solve(f):
 
 def main():
     method = sys.argv[1]
-    solve(SOLVERS[method])
+    test(SOLVERS[method])
 
 
 main()
