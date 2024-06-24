@@ -46,3 +46,5 @@ Usar comandos para TP3.py (ver más arriba)
 <code>python generador.py CANTIDAD_DE_GUERREROS CANTIDAD_DE_GRUPOS</code>
 
 Ejemplo: <br>  *python generador.py 5 2*
+
+El archivo debe ser evaluado luego utilizando TP3.py

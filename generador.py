@@ -1,14 +1,14 @@
 import sys
 import random
-import backtraking
+
 
 INDICE_NOMBRES = 1
 INDICE_GRUPOS = 2
-INDICE_GENERADOR = 4
-INDICE_ALGORITMO = 3
-BACKTRAKING = "b"
+CANTIDAD_ARGS = 3
+
 ARCHIVO = "generador.txt"
 ARCHIVO_NOMBRES = "nombres.txt"
+
 
 def generador(cantidad_de_nombres, cantidad_de_grupos):
     try:
@@ -42,16 +42,17 @@ def generador(cantidad_de_nombres, cantidad_de_grupos):
     generador.close()
     archivo_nombres.close()
 
+
 #PARA USAR EL GENERADOR SE ESPERA QUE LOS ARGUMENTOS PASADOS POR TERMINAL SON:
 #python generador.py (cantidad de nombres, numero entero) (cantidad de grupos, numero entero) (b (backtraking) o pl (programacion lineal) )
 def main():
     argumentos = sys.argv
     numero_parametros = len(argumentos)
     
-    if numero_parametros < INDICE_GENERADOR:
+    if numero_parametros < CANTIDAD_ARGS:
         print("faltan argumentos para utilizar el generador")
         return
-    elif numero_parametros > INDICE_GENERADOR:
+    elif numero_parametros > CANTIDAD_ARGS:
         print("se agregaron argumentos de mas, que van a ser ignorados")
 
     try:
@@ -63,10 +64,7 @@ def main():
 
     generador(cantidad_de_nombres, cantidad_de_grupos)
 
-    if argumentos[INDICE_ALGORITMO] == BACKTRAKING:
-        backtraking.main(ARCHIVO)
-
-
+    print("El archivo fue generado con exito!")
 
 
 if __name__ == "__main__":
