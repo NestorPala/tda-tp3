@@ -1,4 +1,60 @@
-# tda-tp3
-TP3 de Teoría de Algoritmos - FIUBA
+# TP3 de TDA - FIUBA
 
-nos faltan puntos para terminar el tp y entregar todos los puntos juntos, entregamos el repositorio pero en la semana estamos terminando todo y mandandolo otra vez
+
+### Integrantes
+
+* Palavecino Arnold, Nestor Fabian - 108244
+* Vázquez Morales, Matias - 111083
+
+
+## Probar el TP3 con un archivo de pruebas de "n" guerreros en "k" grupos
+
+Si el archivo está en la misma carpeta que tp3.py:
+
+<code>python tp3.py -file ARCHIVO_GUERREROS.txt</code>
+
+Ejemplo: *python tp3.py -file 5_2.txt*
+
+<br>
+
+Si el archivo está en cualquier ruta:
+
+<code>python tp3.py -abs PATH_TO_/ARCHIVO_GUERREROS.txt</code>
+
+Ejemplo: *python tp3.py -abs C:\Users\Nestor\Desktop\5_2.txt*
+
+----
+
+## Ejecutar tests de la cátedra
+
+Se corren junto con las pruebas de tiempo. 
+
+<code>python tests_catedra.py</code>
+
+----
+
+## Ejecutar las pruebas de tiempo del algoritmo
+
+Estas pruebas se pueden correr para cualquier archivo de guerreros. 
+
+<br>
+
+Si el archivo está en la misma carpeta que pruebas_tiempo_algoritmo.py:
+
+<code>python pruebas_tiempo_algoritmo.py -file ARCHIVO_GUERREROS.txt</code>
+
+Ejemplo: *python pruebas_tiempo_algoritmo.py -file 5_2.txt*
+
+<br>
+
+Si el archivo está en cualquier ruta:
+
+<code>python pruebas_tiempo_algoritmo.py -abs PATH_TO_/ARCHIVO_GUERREROS.txt</code>
+
+Ejemplo: *python pruebas_tiempo_algoritmo.py -abs C:\Users\Nestor\Desktop\5_2.txt*
+
+----
+
+## Generar archivo de conjunto de guerreros
+
+<code>python generador.py VALOR_N_ENTERO</code>
