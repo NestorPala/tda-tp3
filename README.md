@@ -37,25 +37,7 @@ Se corren junto con las pruebas de tiempo.
 
 ## Ejecutar las pruebas de tiempo del algoritmo
 
-Estas pruebas se pueden correr para cualquier archivo de guerreros. 
-
-<br>
-
-<code>SOLVER</code> : "-back", "-lp", "-aprox" o "-greedy" <br><br>
-
-Si el archivo está en la misma carpeta que pruebas_tiempo_algoritmo.py:
-
-<code>python pruebas_tiempo_algoritmo.py -file ARCHIVO_GUERREROS.txt</code>
-
-Ejemplo: <br>  *python pruebas_tiempo_algoritmo.py -file 5_2.txt -greedy*
-
-<br>
-
-Si el archivo está en cualquier ruta:
-
-<code>python pruebas_tiempo_algoritmo.py -abs PATH_TO_/ARCHIVO_GUERREROS.txt</code>
-
-Ejemplo: <br>  *python pruebas_tiempo_algoritmo.py -abs C:\Users\Nestor\Desktop\5_2.txt -greedy*
+Usar comandos para TP3.py (ver más arriba)
 
 ----
 
