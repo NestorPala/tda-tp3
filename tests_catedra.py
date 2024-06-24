@@ -283,6 +283,12 @@ def test(f):
 
 
 def main():
+    if len(sys.argv) != 2:
+        print("Uso del programa: \
+              \n python tests_catedra.py SOLVER \
+              \n SOLVER: '-back', '-lp', '-aprox' o '-greedy'"
+              )
+        return
     method = sys.argv[1]
     test(SOLVERS[method])
 
