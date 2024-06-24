@@ -31,7 +31,9 @@ Ejemplo: <br> *python tp3.py -abs C:\Users\Nestor\Desktop\5_2.txt -greedy*
 
 Se corren junto con las pruebas de tiempo. 
 
-<code>python tests_catedra.py</code>
+<code>SOLVER</code> : "-back", "-lp", "-aprox" o "-greedy" <br><br>
+
+<code>python tests_catedra.py SOLVER</code>
 
 ----
 

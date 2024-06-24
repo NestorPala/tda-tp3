@@ -12,22 +12,22 @@ FILENAMES = [
     '6_4.txt', 
     '8_3.txt',
     '10_3.txt',
-    '10_5.txt', # NOT PASS FOR LP SOLVER
-    # '10_10.txt',
+    '10_5.txt',
+    '10_10.txt',
     '11_5.txt', 
     '14_3.txt', 
     '14_4.txt', 
     '14_6.txt',
     '15_4.txt', 
-    # '15_6.txt',
-    # '17_5.txt',
-    # '17_7.txt', 
-    # '17_10.txt', 
-    # '18_6.txt', 
-    # '18_8.txt', 
-    # '20_4.txt', 
-    # '20_5.txt', 
-    # '20_8.txt'
+    '15_6.txt',
+    '17_5.txt',
+    '17_7.txt', 
+    '17_10.txt', 
+    '18_6.txt', 
+    '18_8.txt', 
+    '20_4.txt', 
+    '20_5.txt', 
+    '20_8.txt'
 ]
 
 EXPECTED_RESULTS = {
