@@ -6,7 +6,7 @@ from ej003_backtracking import tribu_agua_backtracking
 from ej004_programacion_lineal import tribu_agua_lp
 from ej005_algoritmo_de_aproximacion import tribu_agua_aproximacion
 from ej006_greedy import tribu_agua_greedy
-from utils.tribu_agua import format_result
+from utils.tribu_agua import format_result, read_guerreros_file
 
 
 ARG_COUNT = 4
@@ -36,16 +36,30 @@ SOLVERS = {
 }
 
 
-def read_file(path):
-    pass
+def get_path_name(path):
+    return os.path.basename(path)
 
 
-def write_file(path):
-    pass
+def write_file(path, result, coefficient):
+    new_path = path.split(".txt")[0] + "_solved.txt"
+
+    try:
+        file = open(new_path, "w")
+    except:
+        print("Error al abrir el archivo de solucion")
+        return
+
+    name = get_path_name(new_path)
+    output = format_result(name, result, coefficient)
+
+    file.write(output)
+
+    file.close()
 
 
 def solve(f, path):
-    name, k, guerreros = read_file(path)
+    name = get_path_name(path)
+    k, guerreros = read_guerreros_file(path)
 
     print(f"\nProcessing test for file: {name}")
 
@@ -91,7 +105,7 @@ def main():
 
     write_file(path, result, coefficient)
 
-    filename = os.path.basename(path)
+    filename = get_path_name(path)
     print("\nArchivo procesado con éxito!")
     print(f"Los resultados se encuentran en el archivo solved_{filename}")
 
