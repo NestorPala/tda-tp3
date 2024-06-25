@@ -5,39 +5,31 @@ from utils.tribu_agua import get_sorted_guerreros, obtener_ruta_archivo, read_gu
 ARCHIVO_ESCRIBIR = "solucion.txt"
 
 
-# n = numero de maestros, k = numero de grupos, x= lista de fuerzas de los maestros
-# grupo = lista de sumas de fuerzas de los grupos, pos = posicion actual en la lista de maestros
-# minimo = minimo encontrado hasta ahora
-def backtracking_(n, k, x, grupo, asignacion, pos, minimo):
-    # si se asignaorn todos los maestros a un grupo, calcula la suma de los cuadrados de las sumas de las fuerzas de los grupos
+def backtracking_(n, k, x, grupo, asignacion, pos, minimo, current_sum_sq, grupos_ordenados):
     if pos == n:
-        suma = sum(i**2 for i in grupo)
-        if suma < minimo[0]:
-            minimo[0] = suma
+        if current_sum_sq < minimo[0]:
+            minimo[0] = current_sum_sq
             minimo[1] = asignacion[:]
     else:
-        # bucle que recorre grupos
-        for i in range(k):
-            # asigna al maestro actual al grupo
+        for i in grupos_ordenados:
             grupo[i] += x[pos]
+            new_sum_sq = current_sum_sq + 2 * x[pos] * grupo[i] - x[pos]**2
             asignacion[pos] = i
-            # verifica si la suma es manor al minimo actual, si es asi sigue con el sig maestro
-            if sum(j**2 for j in grupo) < minimo[0]:
-                # llama la siguiente posicion
-                backtracking_(n, k, x, grupo, asignacion, pos + 1, minimo)
-            # deshace la asignacion del maestro
+
+            if new_sum_sq < minimo[0]:
+                backtracking_(n, k, x, grupo, asignacion, pos + 1, minimo, new_sum_sq, grupos_ordenados)
+
             grupo[i] -= x[pos]
 
-
 def backtracking(cantidad_de_grupos, nombre_y_habilidad):
-    # numero total de maestros
     n = len(nombre_y_habilidad)
-    # crea lista con las fuerzas de los maestros
     x = [habilidad for _, habilidad in nombre_y_habilidad]
-    grupo = [0]*cantidad_de_grupos
-    asignacion = [0]*n
+    x.sort(reverse=True)
+    grupo = [0] * cantidad_de_grupos
+    asignacion = [0] * n
     minimo = [float('inf'), []]
-    backtracking_(n, cantidad_de_grupos, x, grupo, asignacion, 0, minimo)
+    grupos_ordenados = sorted(range(cantidad_de_grupos), key=lambda i: grupo[i])
+    backtracking_(n, cantidad_de_grupos, x, grupo, asignacion, 0, minimo, 0, grupos_ordenados)
     return minimo[0], minimo[1]
 
 
